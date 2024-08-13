@@ -3,9 +3,11 @@
 namespace App;
 
 use App\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Syllabus extends Model
 {
+    use HasFactory;
     protected $table = 'syllabuses';
     /**
     * Get the school record associated with the user.

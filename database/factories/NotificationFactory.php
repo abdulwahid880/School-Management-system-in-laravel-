@@ -1,19 +1,24 @@
 <?php
 
-use App\User;
-use App\Notification;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Notification::class, function (Faker $faker) {
-    return [
-        'sent_status' => $faker->randomElement([0, 1]),
-        'active'      => $faker->randomElement([0, 1]),
-        'message'     => $faker->sentences(3, true),
-        'student_id'  => $faker->randomElement(App\User::student()->pluck('id')->toArray()),
-        'user_id'     => function() use ($faker) {
-            if (User::count())
-                return $faker->randomElement(User::pluck('id')->toArray());
-            else return factory(User::class)->create()->id;
-        },
-    ];
-});
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\User;
+
+class NotificationFactory extends Factory
+{
+    public function definition(): array
+    {
+        return [
+            'sent_status' => fake()->randomElement([0, 1]),
+            'active'      => fake()->randomElement([0, 1]),
+            'message'     => fake()->sentences(3, true),
+            'student_id'  => fake()->randomElement(User::student()->pluck('id')->toArray()),
+            'user_id'     => function() {
+                if (User::count())
+                    return fake()->randomElement(User::pluck('id')->toArray());
+                else return User::factory(1)->create()->id;
+            },
+        ];
+    }
+}

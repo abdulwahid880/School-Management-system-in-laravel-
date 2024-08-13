@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\StudentBoardExam;
 use Illuminate\Database\Seeder;
 
-class AccountSectorsTableSeeder extends Seeder
+class StudentboardexamsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class AccountSectorsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\AccountSector::class, 50)->create();
+        StudentBoardExam::factory(200)->create();
     }
 }

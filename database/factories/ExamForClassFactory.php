@@ -1,14 +1,19 @@
 <?php
 
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Exam;
 use App\Myclass;
-use App\ExamForClass;
-use Faker\Generator as Faker;
 
-$factory->define(ExamForClass::class, function (Faker $faker) {
-    return [
-        'class_id' => $faker->randomElement(Myclass::pluck('id')->toArray()),
-        'exam_id'  => $faker->randomElement(Exam::where('active', 1)->pluck('id')->toArray()),
-        'active'   => $faker->randomElement([0, 1]),
-    ];
-});
+class ExamForClassFactory extends Factory
+{
+    public function definition(): array
+    {
+        return [
+            'class_id' => fake()->randomElement(Myclass::pluck('id')->toArray()),
+            'exam_id'  => fake()->randomElement(Exam::where('active', 1)->pluck('id')->toArray()),
+            'active'   => fake()->randomElement([0, 1]),
+        ];
+    }
+}

@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Fee;
 use Illuminate\Database\Seeder;
 
-class StudentboardexamsTableSeeder extends Seeder
+class FeesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class StudentboardexamsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\StudentBoardExam::class, 200)->create();
+        Fee::factory(50)->create();
     }
 }

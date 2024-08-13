@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Form;
 use Illuminate\Database\Seeder;
 
-class ExamsTableSeeder extends Seeder
+class FormsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class ExamsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Exam::class, 10)->create();
+        Form::factory(50)->create();
     }
 }

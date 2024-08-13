@@ -1,25 +1,30 @@
 <?php
 
-use App\User;
-use App\Notice;
-use App\School;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Notice::class, function (Faker $faker) {
-    return [
-        'file_path'   => $faker->url,
-        'title'       => $faker->sentences(1, true),
-        'description' => $faker->sentences(3, true),
-        'active'      => $faker->randomElement([0, 1]),
-        'school_id'   => function() use ($faker) {
-            if (School::count())
-                return $faker->randomElement(School::pluck('id')->toArray());
-            else return factory(School::class)->create()->id;
-        },
-        'user_id'     => function() use ($faker) {
-            if (User::count())
-                return $faker->randomElement(User::pluck('id')->toArray());
-            else return factory(User::class)->create()->id;
-        },
-    ];
-});
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\User;
+use App\School;
+
+class NoticeFactory extends Factory
+{
+    public function definition(): array
+    {
+        return [
+            'file_path'   => fake()->url,
+            'title'       => fake()->sentences(1, true),
+            'description' => fake()->sentences(3, true),
+            'active'      => fake()->randomElement([0, 1]),
+            'school_id'   => function() {
+                if (School::count())
+                    return fake()->randomElement(School::pluck('id')->toArray());
+                else return School::factory(1)->create()->id;
+            },
+            'user_id'     => function() {
+                if (User::count())
+                    return fake()->randomElement(User::pluck('id')->toArray());
+                else return User::factory(1)->create()->id;
+            },
+        ];
+    }
+}

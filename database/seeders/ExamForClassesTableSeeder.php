@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\ExamForClass;
 use Illuminate\Database\Seeder;
 
-class GradesystemsTableSeeder extends Seeder
+class ExamForClassesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class GradesystemsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Gradesystem::class, 2)->create();
+        ExamForClass::factory(30)->create();
     }
 }

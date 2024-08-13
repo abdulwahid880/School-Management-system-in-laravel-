@@ -1,8 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+use App\Routine;
 use Illuminate\Database\Seeder;
 
-class CoursesTableSeeder extends Seeder
+class RoutinesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +13,6 @@ class CoursesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Course::class, 50)->create();
+        Routine::factory(50);
     }
 }

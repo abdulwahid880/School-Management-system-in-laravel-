@@ -1,5 +1,8 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Account;
 use Illuminate\Database\Seeder;
 
 class AccountsTableSeeder extends Seeder
@@ -11,6 +14,6 @@ class AccountsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Account::class, 50)->create();
+        Account::factory(50)->create();
     }
 }

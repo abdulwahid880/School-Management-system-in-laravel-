@@ -3,9 +3,11 @@
 namespace App;
 
 use App\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Grade extends Model
 {
+    use HasFactory;
     /**
      * Get the course record associated with the user.
     */

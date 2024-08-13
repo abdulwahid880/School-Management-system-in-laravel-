@@ -1,24 +1,31 @@
 <?php
 
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Generator as Faker;
 use App\Message;
 use App\School;
 use App\User;
 
-$factory->define(Message::class, function (Faker $faker) {
-    return [
-        'phone_number' => $faker->randomNumber(7, false),
-        'email'        => $faker->unique()->safeEmail,
-        'message'      => $faker->sentences(3, true),
-        'school_id'    => function () use ($faker) {
-          if (School::count())
-            return $faker->randomElement(School::pluck('id')->toArray());
-          else return factory(School::class)->create()->id;
-        },
-        'user_id'      => function () use ($faker) {
-          if (User::count())
-            return $faker->randomElement(User::pluck('id')->toArray());
-          else return factory(User::class)->create()->id;
-        },
-    ];
-});
+class MessageFactory extends Factory
+{
+  public function definition(): array
+  {
+      return [
+          'phone_number' => fake()->randomNumber(7, false),
+          'email'        => fake()->unique()->safeEmail,
+          'message'      => fake()->sentences(3, true),
+          'school_id'    => function () {
+            if (School::count())
+              return fake()->randomElement(School::pluck('id')->toArray());
+            else return School::factory(1)->create()->id;
+          },
+          'user_id'      => function () {
+            if (User::count())
+              return fake()->randomElement(User::pluck('id')->toArray());
+            else return User::factory(1)->create()->id;
+          },
+      ];
+  }
+}

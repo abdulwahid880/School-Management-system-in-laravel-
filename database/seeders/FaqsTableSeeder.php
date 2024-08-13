@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Faq;
 use Illuminate\Database\Seeder;
 
-class RoutinesTableSeeder extends Seeder
+class FaqsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class RoutinesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Routine::class, 50)->create();
+        Faq::factory(50)->create();
     }
 }

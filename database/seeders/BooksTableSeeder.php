@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Book;
 use Illuminate\Database\Seeder;
 
-class FeedbacksTableSeeder extends Seeder
+class BooksTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class FeedbacksTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Feedback::class, 50)->create();
+        Book::factory(50)->create();
     }
 }

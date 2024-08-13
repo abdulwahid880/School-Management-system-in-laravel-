@@ -4,20 +4,20 @@ namespace App\Services\User;
 use App\User;
 use App\StudentInfo;
 use Illuminate\Support\Facades\DB;
-use Mavinoo\LaravelBatch\Batch;
+// use Mavinoo\LaravelBatch\Batch;
 use Illuminate\Support\Facades\Log;
 
 class UserService {
     
     protected $user;
     protected $db;
-    protected $batch;
+    // protected $batch;
     protected $st, $st2;
 
-    public function __construct(User $user, DB $db, Batch $batch){
+    public function __construct(User $user, DB $db){
         $this->user = $user;
         $this->db = $db;
-        $this->batch = $batch;
+        // $this->batch = $batch;
     }
 
     public function isListOfStudents($school_code, $student_code){
@@ -95,9 +95,9 @@ class UserService {
     public function promoteSectionStudentsPostDBTransaction(){
         return $this->db::transaction(function () {
             $table1 = 'users';
-            $this->batch->update($table1, (array) $this->st, 'id');
+            // $this->batch->update($table1, (array) $this->st, 'id');
             $table2 = 'student_infos';
-            $this->batch->update($table2, (array) $this->st2, 'student_id');
+            // $this->batch->update($table2, (array) $this->st2, 'student_id');
         });
     }
 

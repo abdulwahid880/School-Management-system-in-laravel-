@@ -1,13 +1,18 @@
 <?php
 
-use App\User;
-use App\Feedback;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Feedback::class, function (Faker $faker) {
-    return [
-        'description' => $faker->sentences(3, true),
-        'student_id'  => $faker->randomElement(User::student()->pluck('id')->toArray()),
-        'teacher_id'  => $faker->randomElement(User::where('role', 'teacher')->pluck('id')->toArray())
-    ];
-});
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\User;
+
+class FeedbackFactory extends Factory
+{
+    public function definition(): array
+    {
+        return [
+            'description' => fake()->sentences(3, true),
+            'student_id'  => fake()->randomElement(User::student()->pluck('id')->toArray()),
+            'teacher_id'  => fake()->randomElement(User::where('role', 'teacher')->pluck('id')->toArray())
+        ];
+    }
+}

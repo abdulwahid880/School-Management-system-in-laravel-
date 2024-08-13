@@ -1,17 +1,22 @@
 <?php
 
-use App\Faq;
-use App\User;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Faq::class, function (Faker $faker) {
-    return [
-        'question' => $faker->sentence(6, true),
-        'answer'   => $faker->sentences(3, true),
-        'user_id'  => function () use ($faker) {
-          if (User::count())
-            return $faker->randomElement(User::pluck('id')->toArray());
-          else return factory(User::class)->create()->id;
-        },
-    ];
-});
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\User;
+
+class FaqFactory extends Factory
+{
+  public function definition(): array
+  {
+      return [
+          'question' => fake()->sentence(6, true),
+          'answer'   => fake()->sentences(3, true),
+          'user_id'  => function () {
+            if (User::count())
+              return fake()->randomElement(User::pluck('id')->toArray());
+            else return User::factory(1)->create()->id;
+          },
+      ];
+  }
+}

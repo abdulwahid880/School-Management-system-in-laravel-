@@ -3,9 +3,11 @@
 namespace App;
 
 use App\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ExamForClass extends Model
 {
+    use HasFactory;
     public $timestamps = false;
 
     public function classes(){

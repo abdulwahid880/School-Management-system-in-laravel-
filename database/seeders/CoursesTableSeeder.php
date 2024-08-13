@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Course;
 use Illuminate\Database\Seeder;
 
-class SyllabusesTableSeeder extends Seeder
+class CoursesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class SyllabusesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Syllabus::class, 50)->create();
+        Course::factory()->create();
     }
 }

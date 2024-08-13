@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Event;
 use Illuminate\Database\Seeder;
 
-class DepartmentTableSeeder extends Seeder
+class EventsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class DepartmentTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Department::class, 10)->create();
+        Event::factory(50)->create();
     }
 }

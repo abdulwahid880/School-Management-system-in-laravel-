@@ -6,6 +6,7 @@ use App\Events\StudentInfoUpdateRequested;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Services\User\UserService;
+use Illuminate\Support\Facades\Log;
 
 class UpdateStudentInfo
 {
@@ -32,7 +33,7 @@ class UpdateStudentInfo
             $this->userService->updateStudentInfo($event->request,$event->student_id);
             return true;
         } catch(\Exception $ex) {
-            Log::info('Failed to update Student information, Id: '.$event->user_id);
+            Log::info('Failed to update Student information, Id: '. $event->student_id);
             return false;
         }
     }

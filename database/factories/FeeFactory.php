@@ -1,36 +1,41 @@
 <?php
 
-use App\Fee;
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\User;
 use App\School;
-use Faker\Generator as Faker;
 
-$factory->define(Fee::class, function (Faker $faker) {
-    return [
-        'fee_name'  => $faker->name,
-        'school_id' => function() use ($faker) {
-            if (School::count())
-                return $faker->randomElement(School::pluck('id')->toArray());
-            else return factory(School::class)->create()->id;
-        },
-        'user_id'   => function() use ($faker) {
-            if (User::count())
-                return $faker->randomElement(User::pluck('id')->toArray());
-            else return factory(User::class)->create()->id;
-        },
-    ];
-});
+class FeeFactory extends Factory
+{
+    public function definition(): array
+    {
+        return [
+            'fee_name'  => fake()->name,
+            'school_id' => function() {
+                if (School::count())
+                    return fake()->randomElement(School::pluck('id')->toArray());
+                else return School::factory(1)->create()->id;
+            },
+            'user_id'   => function() {
+                if (User::count())
+                    return fake()->randomElement(User::pluck('id')->toArray());
+                else return User::factory(1)->create()->id;
+            },
+        ];
+    }
+}
 
-// 'admission_fee'    => $faker->randomNumber,
-// 'tution_fee'       => $faker->randomNumber,
-// 'fine_fee'         => $faker->randomNumber,
-// 'exam_fee'         => $faker->randomNumber,
-// 'registration_fee' => $faker->randomNumber,
-// 'library_fee'      => $faker->randomNumber,
-// 'lab_fee'          => $faker->randomNumber,
-// 'sport_fee'        => $faker->randomNumber,
-// 'late_payment_fee' => $faker->randomNumber,
-// 'maintenance_fee'  => $faker->randomNumber,
-// 'internet_fee'     => $faker->randomNumber,
-// 'farewell_fee'     => $faker->randomNumber,
-// 'other_fee'        => $faker->randomNumber,
+// 'admission_fee'    => fake()->randomNumber,
+// 'tution_fee'       => fake()->randomNumber,
+// 'fine_fee'         => fake()->randomNumber,
+// 'exam_fee'         => fake()->randomNumber,
+// 'registration_fee' => fake()->randomNumber,
+// 'library_fee'      => fake()->randomNumber,
+// 'lab_fee'          => fake()->randomNumber,
+// 'sport_fee'        => fake()->randomNumber,
+// 'late_payment_fee' => fake()->randomNumber,
+// 'maintenance_fee'  => fake()->randomNumber,
+// 'internet_fee'     => fake()->randomNumber,
+// 'farewell_fee'     => fake()->randomNumber,
+// 'other_fee'        => fake()->randomNumber,

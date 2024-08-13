@@ -1,16 +1,18 @@
 <?php
 
-use App\School;
-use App\Department;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Department::class, function (Faker $faker) {
-    return [
-        'school_id'       => function () use ($faker) {
-            if (School::count())
-                return $faker->randomElement(School::pluck('id')->toArray());
-            else return factory(School::class)->create()->id;
-        },
-        'department_name' => $faker->randomElement(['Bangla','English','Math']),
-    ];
-});
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+use App\School;
+
+class DepartmentFactory extends Factory
+{
+    public function definition(): array
+    {
+        return [
+            'school_id' => School::count() ? fake()->randomElement(School::pluck('id')->toArray()): School::factory(1)->create()->id,
+            'department_name' => fake()->randomElement(['Bangla','English','Math']),
+        ];
+    }
+}

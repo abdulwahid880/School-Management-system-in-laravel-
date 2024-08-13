@@ -3,9 +3,11 @@
 namespace App;
 
 use App\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class School extends Model
 {
+  use HasFactory;
   /**
      * The attributes that are mass assignable.
      *

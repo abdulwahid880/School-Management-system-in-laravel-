@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Feedback;
 use Illuminate\Database\Seeder;
 
-class GradesTableSeeder extends Seeder
+class FeedbacksTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class GradesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Grade::class, 50)->create();
+        Feedback::factory(50)->create();
     }
 }

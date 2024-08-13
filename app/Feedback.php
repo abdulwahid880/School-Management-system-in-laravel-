@@ -3,9 +3,11 @@
 namespace App;
 
 use App\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Feedback extends Model
 {
+    use HasFactory;
     protected $table = 'feedbacks';
     /**
      * Get the student record associated with the user.

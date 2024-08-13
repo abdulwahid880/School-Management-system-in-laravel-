@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Account;
 use Illuminate\Database\Seeder;
 
-class FeesTableSeeder extends Seeder
+class AccountSectorsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class FeesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Fee::class, 50)->create();
+        Account::factory(50)->create();
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+use App\Notice;
 use Illuminate\Database\Seeder;
 
-class NotificationsTableSeeder extends Seeder
+class NoticesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +13,6 @@ class NotificationsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Notification::class, 50)->create();
+        Notice::factory(50)->create();
     }
 }

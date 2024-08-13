@@ -404,14 +404,14 @@
             format: "yyyy-mm-dd",
         });
         $('#birthday').datepicker('setDate',
-            "{{ Carbon\Carbon::parse($user->studentInfo['birthday'])->format('Y-d-m') }}");
+            "{{ isset($user->studentInfo['birthday']) ? Carbon\Carbon::parse($user->studentInfo['birthday'])->format('Y-d-m') : '' }}");
         $('#session').datepicker({
             format: "yyyy",
             viewMode: "years",
             minViewMode: "years"
         });
         $('#session').datepicker('setDate',
-            "{{ Carbon\Carbon::parse($user->studentInfo['session'])->format('Y') }}");
+            "{{ isset($user->studentInfo['birthday']) ? Carbon\Carbon::parse($user->studentInfo['birthday'])->format('Y') : ''}}");
     });
 </script>
 @endsection

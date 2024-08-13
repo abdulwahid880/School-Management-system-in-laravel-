@@ -1,23 +1,25 @@
 <?php
 
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\User;
 use App\School;
-use App\AccountSector;
-use Faker\Generator as Faker;
 
-$factory->define(AccountSector::class, function (Faker $faker) {
-    return [
-        'name'      => $faker->catchPhrase,
-        'type'      => $faker->randomElement(['income','expense']),
-        'school_id' => function () use ($faker) {
-            if (School::count())
-                return $faker->randomElement(School::pluck('id')->toArray());
-            else return factory(School::class)->create()->id;
-        },
-        'user_id'   => function() use ($faker) {
-            if (User::where('role','accountant')->count())
-                return $faker->randomElement(User::where('role','accountant')->pluck('id')->toArray());
-            else return factory(User::class)->states('accountant')->create()->id;
-        },
-    ];
-});
+class AccountSectorFactory extends Factory
+{
+    public function definition(): array
+    {
+        return [
+            'name'      => fake()->catchPhrase,
+            'type'      => fake()->randomElement(['income','expense']),
+            'school_id' =>
+            School::count() ? fake()->randomElement(School::pluck('id')->toArray()) : School::factory(1)->create()->id,
+            'user_id'   => function() {
+                if (User::where('role','accountant')->count())
+                    return fake()->randomElement(User::where('role','accountant')->pluck('id')->toArray());
+                else return User::factory()->role('accountant')->create()->id;
+            },
+        ];
+    }
+}

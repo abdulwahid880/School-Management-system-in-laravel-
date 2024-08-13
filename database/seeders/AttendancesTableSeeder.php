@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Attendance;
 use Illuminate\Database\Seeder;
 
-class HomeworksTableSeeder extends Seeder
+class AttendancesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class HomeworksTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Homework::class, 50)->create();
+        Attendance::factory(50)->create();
     }
 }

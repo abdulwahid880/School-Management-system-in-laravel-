@@ -1,10 +1,14 @@
 <?php
 
-use App\User;
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 use App\School;
 use App\Section;
 use App\Department;
-use Faker\Generator as Faker;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,68 +20,60 @@ use Faker\Generator as Faker;
 | model instances for testing / seeding your application's database.
 |
 */
-$factory->define(User::class, function (Faker $faker) {
-    static $password;
+
+class UserFactory extends Factory
+{
+  /**
+   * The current password being used by the factory.
+   */
+  protected static ?string $password;
+
+  public function definition(): array
+  {
 
     return [
-        'name'           => $faker->name,
-        'email'          => $faker->unique()->safeEmail,
-        'password'       => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'name'           => fake()->name,
+        'email'          => fake()->unique()->safeEmail,
+        'password'       => static::$password ??= Hash::make('password'),
+        'remember_token' => Str::random(10),
         'active'         => 1,
-        'role'           => $faker->randomElement(['student', 'teacher', 'admin', 'accountant', 'librarian']),
-        'school_id' => function () use ($faker) {
+        'role'           => fake()->randomElement(['student', 'teacher', 'admin', 'accountant', 'librarian']),
+        'school_id' =>
+      School::count() ? fake()->randomElement(School::pluck('id')->toArray()) : School::factory(1)->create()->id,
+        'code' => function () {
           if (School::count())
-            return $faker->randomElement(School::pluck('id')->toArray());
-          else return factory(School::class)->create()->id;
+            return fake()->randomElement(School::pluck('code')->toArray());
+          else return School::factory(1)->create()->code;
         },
-        'code' => function () use ($faker) {
-          if (School::count())
-            return $faker->randomElement(School::pluck('code')->toArray());
-          else return factory(School::class)->create()->code;
-        },
-        'student_code'   => $faker->unique()->randomNumber(7, false),
-        'address'        => $faker->address,
-        'about'          => $faker->sentences(3, true),
-        'pic_path'       => $faker->imageUrl(640, 480),
-        'phone_number'   => $faker->unique()->phoneNumber,
+        'student_code'   => fake()->unique()->randomNumber(7, false),
+        'address'        => fake()->address,
+        'about'          => fake()->sentences(3, true),
+        'pic_path'       => fake()->imageUrl(640, 480),
+        'phone_number'   => fake()->unique()->phoneNumber,
         'verified'       => 1,
-        'section_id' => function () use ($faker) {
+        'section_id' => function (){
           if (Section::count())
-            return $faker->randomElement(Section::pluck('id')->toArray());
-          else return factory(Section::class)->create()->id;
+            return fake()->randomElement(Section::pluck('id')->toArray());
+          else return Section::factory(1)->create()->id;
         },
-        'department_id' => function () use ($faker) {
+        'department_id' => function (){
           if (Department::count())
-            return $faker->randomElement(Department::pluck('id')->toArray());
-          else return factory(Department::class)->create()->id;
+            return fake()->randomElement(Department::pluck('id')->toArray());
+          else return Department::factory(1)->create()->id;
         },
-        'blood_group'    => $faker->randomElement(['a+', 'b+', 'ab', 'o+']),
+        'blood_group'    => fake()->randomElement(['a+', 'b+', 'ab', 'o+']),
         'nationality'    => 'Bangladeshi',
-        'gender'         => $faker->randomElement(['male', 'female']),
+        'gender'         => fake()->randomElement(['male', 'female']),
     ];
-});
+  }
 
-$factory->state(User::class, 'master', [
-    'role' => 'master'
-]);
+  public function role($role): Factory 
+  {
+    return $this->state(function (array $attributes) use ($role) {
+      return [
+        'role' => $role,
+      ];
+    });
+  }
+}
 
-$factory->state(User::class, 'accountant', [
-    'role' => 'accountant'
-]);
-
-$factory->state(User::class, 'admin', [
-    'role' => 'admin'
-]);
-
-$factory->state(User::class, 'librarian', [
-    'role' => 'librarian'
-]);
-
-$factory->state(User::class, 'teacher', [
-    'role' => 'teacher'
-]);
-
-$factory->state(User::class, 'student', [
-    'role' => 'student'
-]);

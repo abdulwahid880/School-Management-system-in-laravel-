@@ -1,15 +1,20 @@
 <?php
 
-use App\School;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(School::class, function (Faker $faker) {
-    return [
-        'name'        => $faker->name,
-        'about'       => $faker->sentences(3, true),
-        'medium'      => $faker->randomElement(['bangla', 'english']),
-        'code'        => date("y").substr(number_format(time() * mt_rand(),0,'',''),0,6),
-        'established' => $faker->name,
-        'theme'       => 'flatly',
-    ];
-});
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class SchoolFactory extends Factory 
+{
+    public function definition(): array
+    {
+        return [
+            'name'        => fake()->name,
+            'about'       => fake()->sentences(3, true),
+            'medium'      => fake()->randomElement(['bangla', 'english']),
+            'code'        => date("y").substr(number_format(time() * mt_rand(),0,'',''),0,6),
+            'established' => fake()->name,
+            'theme'       => 'flatly',
+        ];
+    }
+}

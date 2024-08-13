@@ -191,8 +191,8 @@ Route::middleware(['auth','admin'])->group(function (){
   Route::prefix('register')->name('register.')->group(function (){
     Route::get('student', 'UserController@redirectToRegisterStudent');
     Route::get('teacher', function(){
-      $departments = \App\Department::where('school_id',\Auth::user()->school_id)->get();
-      $classes = \App\Myclass::where('school_id',\Auth::user()->school->id)->pluck('id');
+      $departments = \App\Department::where('school_id',Auth::user()->school_id)->get();
+      $classes = \App\Myclass::where('school_id',Auth::user()->school->id)->pluck('id');
       $sections = \App\Section::with('class')->whereIn('class_id',$classes)->get();
       session([
         'register_role' => 'teacher',
